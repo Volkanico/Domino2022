@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Tablero {
 
-    ArrayList<Ficha> fichasTotales;
+    private ArrayList<Ficha> fichasTotales;
 
 
 
@@ -17,6 +17,11 @@ public class Tablero {
     }
 
 
+    public ArrayList<Ficha> getFichasTotales() {
+        return fichasTotales;
+    }
 
-
+    public void setFichasTotales(ArrayList<Ficha> fichasTotales) {
+        this.fichasTotales = fichasTotales;
+    }
 }
