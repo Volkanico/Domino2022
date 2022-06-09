@@ -1,32 +1,12 @@
 package com.company;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InputOutput {
     Scanner sc = new Scanner(System.in);
-
     int decision;
-
-    String numJugadorParsed;
-    String nomJugador;
 
     Tablero tablero = new Tablero();
 
-
-
-    ArrayList<Jugador> jugadors = new ArrayList<Jugador>();
-
-    public void guardarJugadors () {
-        for (int i = 0; i < jugadors.size(); i++) {
-
-           // numJugadorParsed = String.valueOf(numJugador);
-            nomJugador = "Jugador" + numJugadorParsed;
-
-
-            //jugadors.add();
-        }
-    }
 
     public void introduction () {
         System.out.println("¡Bienvenido a Domino!");
@@ -41,19 +21,6 @@ public class InputOutput {
         }
         if (decision == 2) {
             decisionDeJugadores();
-        }
-    }
-
-    public void guardarEquips () {
-        tablero.equip1.add(tablero.getJugador1());
-        tablero.equip1.add(tablero.jugador2);
-        tablero.equip2.add(tablero.jugador3);
-        tablero.equip2.add(tablero.jugador4);
-        for(int i = 0; i < tablero.equip1.size(); i++) {
-            System.out.println(tablero.getEquip1().get(i).getNom());
-        }
-        for(int i = 0; i < tablero.equip2.size(); i++) {
-            System.out.print(tablero.getEquip2());
         }
     }
 

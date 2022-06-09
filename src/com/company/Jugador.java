@@ -1,10 +1,11 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Jugador {
 
     private String nom;
-
-    private Ficha[] fichasDelJugador;
+    private ArrayList<Ficha> fichasDelJugador = new ArrayList<>();
 
     public Jugador (String nom) {
         this.nom = nom;
@@ -18,13 +19,11 @@ public class Jugador {
         this.nom = nom;
     }
 
-    public Ficha[] getFichasDelJugador() {
+    public ArrayList<Ficha> getFichasDelJugador() {
         return fichasDelJugador;
     }
 
-    public void setFichasDelJugador(Ficha[] fichasDelJugador) {
+    public void setFichasDelJugador(ArrayList<Ficha> fichasDelJugador) {
         this.fichasDelJugador = fichasDelJugador;
     }
-
-
 }

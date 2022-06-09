@@ -12,8 +12,13 @@ public class Tablero {
 
     ArrayList<Jugador> equip1 = new ArrayList<>();
     ArrayList<Jugador> equip2 = new ArrayList<>();
+    ArrayList<Jugador> jugadorsTotals = new ArrayList<>();
 
     public void guardarEquips () {
+        jugadorsTotals.add(jugador1);
+        jugadorsTotals.add(jugador2);
+        jugadorsTotals.add(jugador3);
+        jugadorsTotals.add(jugador4);
         equip1.add(jugador1);
         equip1.add(jugador2);
         equip2.add(jugador3);
@@ -50,6 +55,21 @@ public class Tablero {
     }
 
 
+    public void repartirFichas () {
+        for (int i = 0; i < fichasTotales.size(); i++) {
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
     public ArrayList<Ficha> getFichasTotales() {
         return fichasTotales;
     }
@@ -59,51 +79,16 @@ public class Tablero {
     }
 
 
-    public Jugador getJugador1() {
-        return jugador1;
-    }
-
-    public void setJugador1(Jugador jugador1) {
-        this.jugador1 = jugador1;
-    }
-
-    public Jugador getJugador2() {
-        return jugador2;
-    }
-
-    public void setJugador2(Jugador jugador2) {
-        this.jugador2 = jugador2;
-    }
-
-    public Jugador getJugador3() {
-        return jugador3;
-    }
-
-    public void setJugador3(Jugador jugador3) {
-        this.jugador3 = jugador3;
-    }
-
-    public Jugador getJugador4() {
-        return jugador4;
-    }
-
-    public void setJugador4(Jugador jugador4) {
-        this.jugador4 = jugador4;
-    }
-
     public ArrayList<Jugador> getEquip1() {
         return equip1;
-    }
-
-    public void setEquip1(ArrayList<Jugador> equip1) {
-        this.equip1 = equip1;
     }
 
     public ArrayList<Jugador> getEquip2() {
         return equip2;
     }
 
-    public void setEquip2(ArrayList<Jugador> equip2) {
-        this.equip2 = equip2;
+    public ArrayList<Jugador> getJugadorsTotals() {
+        return jugadorsTotals;
     }
+
 }
