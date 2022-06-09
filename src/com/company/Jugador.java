@@ -6,7 +6,6 @@ public class Jugador {
 
     private Ficha[] fichasDelJugador;
 
-
     public Jugador (String nom) {
         this.nom = nom;
     }

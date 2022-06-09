@@ -7,17 +7,13 @@ public class InputOutput {
     Scanner sc = new Scanner(System.in);
 
     int decision;
+
     String numJugadorParsed;
     String nomJugador;
 
-    Jugador jugador1 = new Jugador("Jugador 1");
-    Jugador jugador2 = new Jugador("Jugador 2");
-    Jugador jugador3 = new Jugador("Jugador 3");
-    Jugador jugador4 = new Jugador("Jugador 4");
+    Tablero tablero = new Tablero();
 
 
-    Jugador[] jugadorsDisponibles;
-    Jugador[] jugadorsQueJuguen;
 
     ArrayList<Jugador> jugadors = new ArrayList<Jugador>();
 
@@ -38,27 +34,38 @@ public class InputOutput {
         System.out.println("¿Desea jugar individualmente o por equipos?");
         System.out.println("Pulse 1 para individual");
         System.out.println("Pulse 2 para equipos");
+        decision = sc.nextInt();
         if (decision == 1) {
             decisionDeJugadores();
+            tablero.guardarEquips();
         }
         if (decision == 2) {
             decisionDeJugadores();
         }
-
-
-
     }
 
-
+    public void guardarEquips () {
+        tablero.equip1.add(tablero.getJugador1());
+        tablero.equip1.add(tablero.jugador2);
+        tablero.equip2.add(tablero.jugador3);
+        tablero.equip2.add(tablero.jugador4);
+        for(int i = 0; i < tablero.equip1.size(); i++) {
+            System.out.println(tablero.getEquip1().get(i).getNom());
+        }
+        for(int i = 0; i < tablero.equip2.size(); i++) {
+            System.out.print(tablero.getEquip2());
+        }
+    }
 
         public void decisionDeJugadores () {
             System.out.println("Jugador 1 introduzca su nombre: ");
-            jugador1.setNom(sc.nextLine());
-            System.out.println(jugador1.getNom());
+            tablero.jugador1.setNom(sc.nextLine());
+            tablero.jugador1.setNom(sc.nextLine());
+            System.out.println(tablero.jugador1.getNom());
 
             System.out.println("Jugador 2 introduzca su nombre: ");
-            jugador2.setNom(sc.nextLine());
-            System.out.println(jugador2.getNom());
+            tablero.jugador2.setNom(sc.nextLine());
+            System.out.println(tablero.jugador2.getNom());
 
             System.out.println("¿Participan mas jugadores?");
             System.out.println("Pulse 1 para SI");
@@ -66,8 +73,9 @@ public class InputOutput {
             decision = sc.nextInt();
             if (decision == 1) {
                 System.out.println("Jugador 3 introduzca su nombre: ");
-                jugador3.setNom(sc.nextLine());
-                System.out.println(jugador3.getNom());
+                tablero.jugador3.setNom(sc.nextLine());
+                tablero.jugador3.setNom(sc.nextLine());
+                System.out.println(tablero.jugador3.getNom());
 
                 System.out.println("¿Participan mas jugadores?");
                 System.out.println("Pulse 1 para SI");
@@ -76,8 +84,9 @@ public class InputOutput {
                 if (decision == 1) {
 
                     System.out.println("Jugador 4 introduzca su nombre: ");
-                    jugador4.setNom(sc.nextLine());
-                    System.out.println(jugador4.getNom());
+                    tablero.jugador4.setNom(sc.nextLine());
+                    tablero.jugador4.setNom(sc.nextLine());
+                    System.out.println(tablero.jugador4.getNom());
                 }
                 if (decision == 2) {
                     //Siguiente metodo
