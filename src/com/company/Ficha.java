@@ -11,4 +11,11 @@ public class Ficha {
         this.num2 = num2;
     }
 
+    public int getNum1() {
+        return num1;
+    }
+
+    public int getNum2() {
+        return num2;
+    }
 }
