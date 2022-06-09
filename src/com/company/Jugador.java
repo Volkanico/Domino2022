@@ -7,7 +7,7 @@ public class Jugador {
     private String nom;
     private ArrayList<Ficha> fichasDelJugador = new ArrayList<>();
 
-    public Jugador (String nom) {
+    public Jugador(String nom) {
         this.nom = nom;
     }
 

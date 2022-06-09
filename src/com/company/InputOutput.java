@@ -1,4 +1,5 @@
 package com.company;
+
 import java.util.Scanner;
 
 public class InputOutput {
@@ -6,15 +7,15 @@ public class InputOutput {
     int decision;
     Tablero tablero = new Tablero();
 
-    public void iniciarJuego () {
+    public void iniciarJuego() {
         tablero.initFichas();
         tablero.imprimirFichas();
         introduction();
         tablero.repartirTodasLasFichas();
-
+        tablero.juego();
     }
 
-    public void introduction () {
+    public void introduction() {
         System.out.println();
         System.out.println();
         System.out.println("¡Bienvenido a Domino!");
@@ -29,54 +30,57 @@ public class InputOutput {
 
         if (decision == 1) {
             decisionDeJugadores();
-            tablero.guardarEquips();
         }
         if (decision == 2) {
             decisionDeJugadores();
+            tablero.guardarEquips();
         }
     }
 
-        public void decisionDeJugadores () {
-            System.out.println("Jugador 1 introduzca su nombre: ");
-            tablero.jugador1.setNom(sc.nextLine());
-            tablero.jugador1.setNom(sc.nextLine());
-            System.out.println(tablero.jugador1.getNom());
+    public void decisionDeJugadores() {
+        System.out.println("Jugador 1 introduzca su nombre: ");
+        tablero.jugador1.setNom(sc.nextLine());
+        tablero.jugador1.setNom(sc.nextLine());
+        System.out.println(tablero.jugador1.getNom());
+        tablero.jugadorsQueJuguen.add(tablero.jugador1);
 
-            System.out.println("Jugador 2 introduzca su nombre: ");
-            tablero.jugador2.setNom(sc.nextLine());
-            System.out.println(tablero.jugador2.getNom());
+        System.out.println("Jugador 2 introduzca su nombre: ");
+        tablero.jugador2.setNom(sc.nextLine());
+        System.out.println(tablero.jugador2.getNom());
+        tablero.jugadorsQueJuguen.add(tablero.jugador2);
+
+        System.out.println("¿Participan mas jugadores?");
+        System.out.println("Pulse 1 para SI");
+        System.out.println("Pulse 2 para NO");
+        decision = sc.nextInt();
+
+        if (decision == 1) {
+            System.out.println("Jugador 3 introduzca su nombre: ");
+            tablero.jugador3.setNom(sc.nextLine());
+            tablero.jugador3.setNom(sc.nextLine());
+            System.out.println(tablero.jugador3.getNom());
+            tablero.jugadorsQueJuguen.add(tablero.jugador3);
 
             System.out.println("¿Participan mas jugadores?");
             System.out.println("Pulse 1 para SI");
             System.out.println("Pulse 2 para NO");
             decision = sc.nextInt();
             if (decision == 1) {
-                System.out.println("Jugador 3 introduzca su nombre: ");
-                tablero.jugador3.setNom(sc.nextLine());
-                tablero.jugador3.setNom(sc.nextLine());
-                System.out.println(tablero.jugador3.getNom());
 
-                System.out.println("¿Participan mas jugadores?");
-                System.out.println("Pulse 1 para SI");
-                System.out.println("Pulse 2 para NO");
-                decision = sc.nextInt();
-                if (decision == 1) {
-
-                    System.out.println("Jugador 4 introduzca su nombre: ");
-                    tablero.jugador4.setNom(sc.nextLine());
-                    tablero.jugador4.setNom(sc.nextLine());
-                    System.out.println(tablero.jugador4.getNom());
-                }
-                if (decision == 2) {
-                    //Siguiente metodo
-                }
+                System.out.println("Jugador 4 introduzca su nombre: ");
+                tablero.jugador4.setNom(sc.nextLine());
+                tablero.jugador4.setNom(sc.nextLine());
+                System.out.println(tablero.jugador4.getNom());
+                tablero.jugadorsQueJuguen.add(tablero.jugador4);
             }
-
             if (decision == 2) {
-                //Siguiente metodo
+                tablero.juego();
             }
         }
-
+        if (decision == 2) {
+            tablero.juego();
+        }
+    }
 
 
 }
