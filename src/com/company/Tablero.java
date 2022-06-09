@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Tablero {
 
     private ArrayList<Ficha> fichasTotales = new ArrayList<>();
+    private ArrayList<Ficha> fichasDestapadasEnElTablero = new ArrayList<>();
     Jugador jugador1 = new Jugador("Jugador 1");
     Jugador jugador2 = new Jugador("Jugador 2");
     Jugador jugador3 = new Jugador("Jugador 3");
     Jugador jugador4 = new Jugador("Jugador 4");
+
 
     ArrayList<Jugador> equip1 = new ArrayList<>();
     ArrayList<Jugador> equip2 = new ArrayList<>();
@@ -23,6 +25,7 @@ public class Tablero {
         equip1.add(jugador2);
         equip2.add(jugador3);
         equip2.add(jugador4);
+
         System.out.println("-----EQUIP 1-----");
         for(int i = 0; i < equip1.size(); i++) {
 
@@ -50,14 +53,24 @@ public class Tablero {
         }
     }
 
-    public void iniciarJuego () {
-        initFichas();
-    }
 
 
-    public void repartirFichas () {
-        for (int i = 0; i < fichasTotales.size(); i++) {
 
+
+    public void repartirTodasLasFichas () {
+
+        for (int x = 0; x < 28; x++){
+            for (int i = 0; i < 7; i++) {
+                int index = (int)(Math.random() * fichasTotales.size());
+                jugador1.getFichasDelJugador().add(fichasTotales.get(index));
+                fichasTotales.remove(index);
+                jugador2.getFichasDelJugador().add(fichasTotales.get(index));
+                fichasTotales.remove(index);
+                jugador3.getFichasDelJugador().add(fichasTotales.get(index));
+                fichasTotales.remove(index);
+                jugador4.getFichasDelJugador().add(fichasTotales.get(index));
+                fichasTotales.remove(index);
+            }//PROVAM AMB ARRAY NORMAL
         }
     }
 
@@ -77,7 +90,6 @@ public class Tablero {
     public void setFichasTotales(ArrayList<Ficha> fichasTotales) {
         this.fichasTotales = fichasTotales;
     }
-
 
     public ArrayList<Jugador> getEquip1() {
         return equip1;

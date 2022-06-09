@@ -4,17 +4,29 @@ import java.util.Scanner;
 public class InputOutput {
     Scanner sc = new Scanner(System.in);
     int decision;
-
     Tablero tablero = new Tablero();
 
+    public void iniciarJuego () {
+        tablero.initFichas();
+        tablero.imprimirFichas();
+        introduction();
+        tablero.repartirTodasLasFichas();
+
+    }
 
     public void introduction () {
+        System.out.println();
+        System.out.println();
         System.out.println("¡Bienvenido a Domino!");
+        System.out.println();
 
         System.out.println("¿Desea jugar individualmente o por equipos?");
+        System.out.println();
         System.out.println("Pulse 1 para individual");
         System.out.println("Pulse 2 para equipos");
+
         decision = sc.nextInt();
+
         if (decision == 1) {
             decisionDeJugadores();
             tablero.guardarEquips();
@@ -64,5 +76,7 @@ public class InputOutput {
                 //Siguiente metodo
             }
         }
+
+
 
 }
