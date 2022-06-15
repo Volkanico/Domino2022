@@ -1,8 +1,11 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Tablero {
+    Scanner nameReader = new Scanner(System.in);
+
     int ganado1perdido2;
 
     Jugador jugador1 = new Jugador("Jugador 1");
@@ -10,36 +13,15 @@ public class Tablero {
     Jugador jugador3 = new Jugador("Jugador 3");
     Jugador jugador4 = new Jugador("Jugador 4");
 
+    ArrayList<Jugador> jugadorsTotals = new ArrayList<>();
+
     ArrayList<Jugador> equip1 = new ArrayList<>();
     ArrayList<Jugador> equip2 = new ArrayList<>();
-    ArrayList<Jugador> jugadorsTotals = new ArrayList<>();
-    ArrayList<Jugador> jugadorsQueJuguen = new ArrayList<>();
+
+    ArrayList<Jugador> jugadorsQueJuguenIndividual = new ArrayList<>();
 
     private ArrayList<Ficha> fichasTotales = new ArrayList<>();
     private ArrayList<Ficha> fichasDestapadasEnElTablero = new ArrayList<>();
-
-    public void guardarEquips() {
-        jugadorsTotals.add(jugador1);
-        jugadorsTotals.add(jugador2);
-        jugadorsTotals.add(jugador3);
-        jugadorsTotals.add(jugador4);
-        equip1.add(jugador1);
-        equip1.add(jugador2);
-        equip2.add(jugador3);
-        equip2.add(jugador4);
-
-        System.out.println("-----EQUIP 1-----");
-        for (int i = 0; i < equip1.size(); i++) {
-
-            System.out.println(getEquip1().get(i).getNom());
-        }
-        System.out.println("-----------------");
-        System.out.println("-----EQUIP 2-----");
-        for (int i = 0; i < equip2.size(); i++) {
-            System.out.println(getEquip2().get(i).getNom());
-        }
-        System.out.println("-----------------");
-    }
 
     public void initFichas() {
         for (int i = 0; i <= 6; i++) {
@@ -47,14 +29,40 @@ public class Tablero {
                 fichasTotales.add(new Ficha(i, j));
             }
         }
+        guardarJugadorsTotals();
     }
 
-    public void imprimirFichas() {
-        for (int i = 0; i < fichasTotales.size(); i++) {
-            System.out.print(" [" + fichasTotales.get(i).getNum1() + " | " + fichasTotales.get(i).getNum2() + "] ");
-        }
+    public void guardarJugadorsTotals() {
+        getJugadorsTotals().add(jugador1);
+        getJugadorsTotals().add(jugador2);
+        getJugadorsTotals().add(jugador3);
+        getJugadorsTotals().add(jugador4);
+        getEquip1().add(jugador1);
+        getEquip1().add(jugador2);
+        getEquip2().add(jugador3);
+        getEquip2().add(jugador4);
     }
 
+    public void anadirJugador1JuegoIndividual() {
+        getJugadorsQueJuguenIndividual().add(jugador1);
+        getJugador1().setNom(nameReader.nextLine());
+    }
+    public void anadirJugador2JuegoIndividual() {
+        getJugadorsQueJuguenIndividual().add(jugador2);
+        getJugador2().setNom(nameReader.nextLine());
+    }
+    public void anadirJugador3JuegoIndividual() {
+        getJugadorsQueJuguenIndividual().add(jugador3);
+        getJugador3().setNom(nameReader.nextLine());
+    }
+    public void anadirJugador4JuegoIndividual() {
+        getJugadorsQueJuguenIndividual().add(jugador4);
+        getJugador4().setNom(nameReader.nextLine());
+    }
+
+    public void juegoIndividual() {
+
+    }
 
     public void repartirTodasLasFichas() {
 
@@ -84,16 +92,10 @@ public class Tablero {
 
     }
 
-    public void setJugadorsQueJuguen(ArrayList<Jugador> jugadorsQueJuguen) {
-        this.jugadorsQueJuguen = jugadorsQueJuguen;
-    }
+    //-------------------------------------------- SETTERS -------------------------------------------------------------
 
-    public ArrayList<Jugador> getJugadorsQueJuguen() {
-        return jugadorsQueJuguen;
-    }
-
-    public ArrayList<Ficha> getFichasTotales() {
-        return fichasTotales;
+    public void setJugadorsQueJuguenIndividual(ArrayList<Jugador> jugadorsQueJuguenIndividual) {
+        this.jugadorsQueJuguenIndividual = jugadorsQueJuguenIndividual;
     }
 
     public void setFichasTotales(ArrayList<Ficha> fichasTotales) {
@@ -102,6 +104,30 @@ public class Tablero {
 
     public void setFichasDestapadasEnElTablero(ArrayList<Ficha> fichasDestapadasEnElTablero) {
         this.fichasDestapadasEnElTablero = fichasDestapadasEnElTablero;
+    }
+
+    public void setEquip1(ArrayList<Jugador> equip1) {
+        this.equip1 = equip1;
+    }
+
+    public void setEquip2(ArrayList<Jugador> equip2) {
+        this.equip2 = equip2;
+    }
+
+    public void setJugadorsTotals(ArrayList<Jugador> jugadorsTotals) {
+        this.jugadorsTotals = jugadorsTotals;
+    }
+
+    public void setGanado1perdido2(int ganado1perdido2) {
+        this.ganado1perdido2 = ganado1perdido2;
+    }
+
+
+    //-------------------------------------------- GETTERS -------------------------------------------------------------
+
+
+    public int getGanado1perdido2() {
+        return ganado1perdido2;
     }
 
     public ArrayList<Ficha> getFichasDestapadasEnElTablero() {
@@ -116,8 +142,49 @@ public class Tablero {
         return equip2;
     }
 
+    public ArrayList<Jugador> getJugadorsQueJuguenIndividual() {
+        return jugadorsQueJuguenIndividual;
+    }
+
+    public ArrayList<Ficha> getFichasTotales() {
+        return fichasTotales;
+    }
+
     public ArrayList<Jugador> getJugadorsTotals() {
         return jugadorsTotals;
     }
+
+    public Jugador getJugador1() {
+        return jugador1;
+    }
+
+    public Jugador getJugador2() {
+        return jugador2;
+    }
+
+    public Jugador getJugador3() {
+        return jugador3;
+    }
+
+    public Jugador getJugador4() {
+        return jugador4;
+    }
+
+    public void setJugador1(Jugador jugador1) {
+        this.jugador1 = jugador1;
+    }
+
+    public void setJugador2(Jugador jugador2) {
+        this.jugador2 = jugador2;
+    }
+
+    public void setJugador3(Jugador jugador3) {
+        this.jugador3 = jugador3;
+    }
+
+    public void setJugador4(Jugador jugador4) {
+        this.jugador4 = jugador4;
+    }
+
 
 }
