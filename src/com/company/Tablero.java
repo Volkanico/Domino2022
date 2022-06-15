@@ -17,7 +17,6 @@ public class Tablero {
 
     ArrayList<Jugador> equip1 = new ArrayList<>();
     ArrayList<Jugador> equip2 = new ArrayList<>();
-
     ArrayList<Jugador> jugadorsQueJuguenIndividual = new ArrayList<>();
 
     private ArrayList<Ficha> fichasTotales = new ArrayList<>();
@@ -37,51 +36,57 @@ public class Tablero {
         getJugadorsTotals().add(jugador2);
         getJugadorsTotals().add(jugador3);
         getJugadorsTotals().add(jugador4);
-        getEquip1().add(jugador1);
-        getEquip1().add(jugador2);
-        getEquip2().add(jugador3);
-        getEquip2().add(jugador4);
     }
 
-    public void anadirJugador1JuegoIndividual() {
-        getJugadorsQueJuguenIndividual().add(jugador1);
+    public void anadirJugador1() {
+        getJugadorsQueJuguen().add(jugador1);
         getJugador1().setNom(nameReader.nextLine());
     }
-    public void anadirJugador2JuegoIndividual() {
-        getJugadorsQueJuguenIndividual().add(jugador2);
+    public void anadirJugador2() {
+        getJugadorsQueJuguen().add(jugador2);
         getJugador2().setNom(nameReader.nextLine());
     }
-    public void anadirJugador3JuegoIndividual() {
-        getJugadorsQueJuguenIndividual().add(jugador3);
+    public void anadirJugador3() {
+        getJugadorsQueJuguen().add(jugador3);
         getJugador3().setNom(nameReader.nextLine());
     }
-    public void anadirJugador4JuegoIndividual() {
-        getJugadorsQueJuguenIndividual().add(jugador4);
+    public void anadirJugador4() {
+        getJugadorsQueJuguen().add(jugador4);
         getJugador4().setNom(nameReader.nextLine());
-    }
-
-    public void juegoIndividual() {
-
     }
 
     public void repartirTodasLasFichas() {
 
-        for (int x = 0; x < 28; x++) {
-            for (int i = 0; i < 7; i++) {
-                int index = (int) (Math.random() * fichasTotales.size());
-                jugador1.getFichasDelJugador().add(fichasTotales.get(index));
-                fichasTotales.remove(index);
-                jugador2.getFichasDelJugador().add(fichasTotales.get(index));
-                fichasTotales.remove(index);
-                jugador3.getFichasDelJugador().add(fichasTotales.get(index));
-                fichasTotales.remove(index);
-                jugador4.getFichasDelJugador().add(fichasTotales.get(index));
-                fichasTotales.remove(index);
+            for (int x = 0; x < getFichasTotales().size(); x++) {
+                for (int i = 0; i < 7; i++) {
+
+                    int index = (int) (Math.random() * getFichasTotales().size());
+                    jugador1.getFichasDelJugador().add(getFichasTotales().get(index));
+                    fichasTotales.remove(index);
+                    index = (int) (Math.random() * getFichasTotales().size());
+                    jugador2.getFichasDelJugador().add(getFichasTotales().get(index));
+                    fichasTotales.remove(index);
+                    index = (int) (Math.random() * getFichasTotales().size());
+                    jugador3.getFichasDelJugador().add(getFichasTotales().get(index));
+                    fichasTotales.remove(index);
+                    index = (int) (Math.random() * getFichasTotales().size());
+                    jugador4.getFichasDelJugador().add(getFichasTotales().get(index));
+                    fichasTotales.remove(index);
+                }
+                //PROVAM AMB ARRAY NORMAL
             }
-            //PROVAM AMB ARRAY NORMAL
-        }
+
     }
 
+    public void repartirEquipos2Jugadores () {
+        getEquip2().add(getJugador2());
+        getEquip1().remove(getJugador2());
+        getEquip2().remove(getJugador3());
+        getEquip2().remove(getJugador4());
+
+
+    }
+/*
     public void juego() {
         if (ganado1perdido2 == 1) {
             //HA GANADO
@@ -91,7 +96,7 @@ public class Tablero {
         }
 
     }
-
+*/
     //-------------------------------------------- SETTERS -------------------------------------------------------------
 
     public void setJugadorsQueJuguenIndividual(ArrayList<Jugador> jugadorsQueJuguenIndividual) {
@@ -142,7 +147,7 @@ public class Tablero {
         return equip2;
     }
 
-    public ArrayList<Jugador> getJugadorsQueJuguenIndividual() {
+    public ArrayList<Jugador> getJugadorsQueJuguen() {
         return jugadorsQueJuguenIndividual;
     }
 
