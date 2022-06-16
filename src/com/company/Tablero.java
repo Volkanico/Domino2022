@@ -82,12 +82,6 @@ public class Tablero {
 
     }
 
-    public void ponerFicha() {
-
-
-
-    }
-
     //-------------------------------------------- SETTERS -------------------------------------------------------------
 
     public void setJugadorsQueJuguen(ArrayList<Jugador> jugadorsQueJuguen) {

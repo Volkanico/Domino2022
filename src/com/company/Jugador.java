@@ -26,4 +26,7 @@ public class Jugador {
     public void setFichasDelJugador(ArrayList<Ficha> fichasDelJugador) {
         this.fichasDelJugador = fichasDelJugador;
     }
+
+
+
 }
