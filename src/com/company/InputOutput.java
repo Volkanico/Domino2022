@@ -14,7 +14,7 @@ public class InputOutput {
         imprimirFichas();
         introduction();
         tablero.repartirTodasLasFichas();
-        //imprimirTodasLasFichasDeTodosLosJugadores();
+
         turnos();
     }
 
@@ -24,16 +24,23 @@ public class InputOutput {
         System.out.println();
         System.out.println("""
                 MODALIDADES:\s
-                Juego Individual\s
-                Juego Por Equipos""");
+                1 Juego Individual\s
+                2 Juego Por Equipos \s
+                Elige una opcion""");
+
         modalidad = sc.nextInt();
 
-        if (modalidad == 1) {
+        if (modalidad == 1 || modalidad == 2) {
             decisionDeJugadores();
+        }
+
+    }
+
+    public void empezarElJuegoConMenosJugadoresQue4 () {
+        if (modalidad == 1) {
             imprimirJugadorsIndividuals();
         }
         if (modalidad == 2) {
-            decisionDeJugadores();
             imprimirEquips();
         }
     }
@@ -41,11 +48,11 @@ public class InputOutput {
     public void decisionDeJugadores() {
         if (modalidad == 1) {
             modalidadIndividual();
-            //imprimirFichasDeJugador();
+
         }
         if (modalidad == 2) {
             modalidadPorEquipos();
-            //imprimirFichasDeJugador();
+
         } else {
             System.out.println("Ups! Opcion erronea");
             decisionDeJugadores();
@@ -58,6 +65,7 @@ public class InputOutput {
         anadirJugador1y2Minimos();
         PreguntaMasJugadores_ReinitCounter();
         opcioMesJugadors();
+        imprimirJugadorsIndividuals();
     }
 
     public void modalidadPorEquipos() {
@@ -68,6 +76,7 @@ public class InputOutput {
         PreguntaMasJugadores_ReinitCounter();
         System.out.println("Miembros del EQUIPO 2");
         opcioMesJugadors();
+        imprimirEquips();
     }
 
     public void turnos() {
@@ -81,7 +90,6 @@ public class InputOutput {
                 imprimirFichasDelTablero();
                 eventoGanado(tablero.getJugadorsQueJuguen().get(x));
                 }
-
         }
     }
 
@@ -108,44 +116,13 @@ public class InputOutput {
 
 
     public void ponerFichaEnTablero (Jugador jugador) {
-        int index0deFichasDestapadasDeTablero = 0;
+
         System.out.println("Pulsa el numero de tu ficha, en el caso de que no tengas");
 
         index = sc.nextInt() - 1;
 
         if (jugador.getFichasDelJugador().get(index) != null) {
-            if (tablero.getFichasDestapadasEnElTablero().size() == 0) { // PARA CUANDO NO HAY FICHA EN EL TABLERO
-                tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
-                jugador.getFichasDelJugador().remove(index);
-            } else if ( // PARA LOS IGUALES
-                    jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() &&
-                            jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2()) {
-                tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
-                jugador.getFichasDelJugador().remove(index);
-            }
-            else if ( // PRINCIPIO DE ARRAYLIST
-                    jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() ||
-                            jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
-                            jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
-                            jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1()) {
-                tablero.getFichasDestapadasEnElTablero().add(0, jugador.getFichasDelJugador().get(index));
-                jugador.getFichasDelJugador().remove(index);
-
-
-            } else if ( //FINAL DE ARRAYILIST
-                    jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum1() ||
-                            jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum2() ||
-                            jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum2() ||
-                            jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum1()) {
-                tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
-                jugador.getFichasDelJugador().remove(index);
-
-
-            } else {
-                index = 0;
-                System.out.println("No tienes ficha para tirar");
-                tirarFicha(jugador);
-            }
+            comprobacionDeFicha(index,jugador);
         } if (jugador.getFichasDelJugador().get(index) == null){
             System.out.println("No tienes ficha en esa casilla");
             tirarFicha(jugador);
@@ -157,6 +134,42 @@ public class InputOutput {
         if (jugador.getFichasDelJugador().size() == 0) {
             System.out.println("¡¡¡" + jugador.getNom() + " has ganado!!!");
             System.exit(0);
+        }
+    }
+
+    public void comprobacionDeFicha (int index, Jugador jugador) {
+        int index0deFichasDestapadasDeTablero = 0;
+        if (tablero.getFichasDestapadasEnElTablero().size() == 0) { // PARA CUANDO NO HAY FICHA EN EL TABLERO
+            tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
+            jugador.getFichasDelJugador().remove(index);
+        } else if ( // PARA LOS IGUALES
+                jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() &&
+                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2()) {
+            tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
+            jugador.getFichasDelJugador().remove(index);
+        }
+        else if ( // PRINCIPIO DE ARRAYLIST
+                jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() ||
+                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
+                        jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
+                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1()) {
+            tablero.getFichasDestapadasEnElTablero().add(0, jugador.getFichasDelJugador().get(index));
+            jugador.getFichasDelJugador().remove(index);
+
+
+        } else if ( //FINAL DE ARRAYILIST
+                jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum1() ||
+                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum2() ||
+                        jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum2() ||
+                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum1()) {
+            tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
+            jugador.getFichasDelJugador().remove(index);
+
+
+        } else {
+            index = 0;
+            System.out.println("No tienes ficha para tirar");
+            tirarFicha(jugador);
         }
     }
 
@@ -180,18 +193,18 @@ public class InputOutput {
                 tablero.getEquip2().remove(tablero.getJugador4());
                 tablero.repartirTodasLasFichas();
                 decision = 0;
-                imprimirFichasDeJugador();
+                empezarElJuegoConMenosJugadoresQue4();
                 turnos();
             } else {
                 System.out.println("Ups! Opcion erronea");
-                modalidadPorEquipos();
+                modalidadIndividual();
             }
 
         }
         if (decision == 2) {
             tablero.repartirEquipos2Jugadores();
             tablero.repartirTodasLasFichas();
-            imprimirFichasDeJugador();
+            empezarElJuegoConMenosJugadoresQue4();
             turnos();
         } else {
             System.out.println("Ups! Opcion erronea");
