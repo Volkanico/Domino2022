@@ -6,7 +6,5 @@ public class Main {
 
         InputOutput inputOutput = new InputOutput();
         inputOutput.iniciarJuego();
-
-
     }
 }

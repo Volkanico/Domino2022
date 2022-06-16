@@ -14,7 +14,7 @@ public class InputOutput {
         imprimirFichas();
         introduction();
         tablero.repartirTodasLasFichas();
-        imprimirTodasLasFichasDeTodosLosJugadores();
+        //imprimirTodasLasFichasDeTodosLosJugadores();
         turnos();
     }
 
@@ -75,40 +75,56 @@ public class InputOutput {
 
         for (int i = 0; i < limitEmpate; i++) {
             for (int x = 0; x < tablero.getJugadorsQueJuguen().size(); x++) {
-                System.out.println("Turno de: " + tablero.getJugadorsQueJuguen().get(x).getNom());
+                System.out.print("Turno de: " + tablero.getJugadorsQueJuguen().get(x).getNom());
+                //imprimirTodasLasFichasDeTodosLosJugadores();
+                imprimirFichasActualizadasDelJugador(x);
                 tirarFicha(tablero.getJugadorsQueJuguen().get(x));
                 imprimirFichasDelTablero();
-            }
+                }
+
         }
+    }
+
+    public void imprimirFichasActualizadasDelJugador(int index) {
+
+        for (int l = 0; l < tablero.getJugadorsQueJuguen().get(index).getFichasDelJugador().size(); l++) {
+            System.out.print(" [" + tablero.getJugadorsQueJuguen().get(index).getFichasDelJugador().get(l).getNum1() + " | " + tablero.getJugadorsQueJuguen().get(index).getFichasDelJugador().get(l).getNum2() + "] ");
+
+        }
+
     }
 
     public Jugador tirarFicha(Jugador jugador) {
         /*ENS FALTA POSAR LA FICHA QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST O AL FINAL DE L'ARRAYLIST, ESTA FET L'IF DEL QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST*/
         int index0deFichasDestapadasDeTablero = 0;
-        index = sc.nextInt();
+        index = sc.nextInt() - 1;
 
-        if (index == 1 || index == 2 || index == 3 || index == 4 ||
-                index == 5 || index == 6 || index == 7) {
-            if (tablero.getFichasDestapadasEnElTablero().size() == 0) {
+        if (index == 0 || index == 1 || index == 2 || index == 3 ||
+                index == 4 || index == 5 || index == 6) {
+            if (tablero.getFichasDestapadasEnElTablero().size() == 0) { // PARA CUANDO NO HAY FICHA EN EL TABLERO
                 tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
+                jugador.getFichasDelJugador().remove(index);
+            } else if ( // PARA LOS IGUALES
+                    jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() &&
+                    jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2()) {
+                tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
+                jugador.getFichasDelJugador().remove(index);
             }
-
-            if (
+            else if ( // PRINCIPIO DE ARRAYLIST
                     jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() ||
-                    jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
-                    jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
-                    jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1()) {
+                            jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
+                            jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
+                            jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1()) {
                 tablero.getFichasDestapadasEnElTablero().add(0, jugador.getFichasDelJugador().get(index));
                 jugador.getFichasDelJugador().remove(index);
 
 
-            }
-            if (tablero.getFichasDestapadasEnElTablero().size() == 1 || tablero.getFichasDestapadasEnElTablero().size() == 0 ||
+            } else if ( //FINAL DE ARRAYILIST
                     jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum1() ||
                     jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum2() ||
                     jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum2() ||
                     jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum1()) {
-                tablero.getFichasDestapadasEnElTablero().lastIndexOf(jugador.getFichasDelJugador().get(index));
+                tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
                 jugador.getFichasDelJugador().remove(index);
 
 
@@ -200,17 +216,18 @@ public class InputOutput {
     public void imprimirTodasLasFichasDeTodosLosJugadores() {
         imprimirFichasDeJugador1();
         imprimirFichasDeJugador2();
-        imprimirFichasDeJugador3();
-        imprimirFichasDeJugador4();
+        //  imprimirFichasDeJugador3();
+        //  imprimirFichasDeJugador4();
     }
 
     public void imprimirFichasDeJugador1() {
         System.out.println();
         System.out.println("Fichas de " + tablero.getJugador1().getNom());
         System.out.println("----1--------2--------3--------4--------5--------6--------7---");
-        for (int i = 0; i < tablero.jugador1.getFichasDelJugador().size(); i++) {
-            System.out.print(" [" + tablero.jugador1.getFichasDelJugador().get(i).getNum1() + " | " + tablero.jugador1.getFichasDelJugador().get(i).getNum2() + "] ");
+        for (int i = 0; i < tablero.getJugador1().getFichasDelJugador().size(); i++) {
+            System.out.print(" [" + tablero.getJugador1().getFichasDelJugador().get(i).getNum1() + " | " + tablero.getJugador1().getFichasDelJugador().get(i).getNum2() + "] ");
         }
+        System.out.println("   Al jugador: " + tablero.getJugador1().getNom() + " le quedan " + tablero.getJugador1().getFichasDelJugador().size() + " fichas");
         System.out.println();
         System.out.println("______________________________________________________________");
     }
@@ -218,10 +235,11 @@ public class InputOutput {
     public void imprimirFichasDeJugador2() {
         System.out.println("Fichas de " + tablero.getJugador2().getNom());
         System.out.println("----1--------2--------3--------4--------5--------6--------7---");
-        for (int i = 0; i < tablero.jugador2.getFichasDelJugador().size(); i++) {
-            System.out.print(" [" + tablero.jugador2.getFichasDelJugador().get(i).getNum1() + " | " + tablero.jugador2.getFichasDelJugador().get(i).getNum2() + "] ");
+        for (int i = 0; i < tablero.getJugador2().getFichasDelJugador().size(); i++) {
+            System.out.print(" [" + tablero.getJugador2().getFichasDelJugador().get(i).getNum1() + " | " + tablero.getJugador2().getFichasDelJugador().get(i).getNum2() + "] ");
 
         }
+        System.out.println("   Al jugador: " + tablero.getJugador2().getNom() + " le quedan " + tablero.getJugador2().getFichasDelJugador().size() + " fichas");
         System.out.println();
         System.out.println("______________________________________________________________");
     }
@@ -229,10 +247,11 @@ public class InputOutput {
     public void imprimirFichasDeJugador3() {
         System.out.println("----1--------2--------3--------4--------5--------6--------7---");
         System.out.println("Fichas de " + tablero.getJugador3().getNom());
-        for (int i = 0; i < tablero.jugador3.getFichasDelJugador().size(); i++) {
-            System.out.print(" [" + tablero.jugador3.getFichasDelJugador().get(i).getNum1() + " | " + tablero.jugador3.getFichasDelJugador().get(i).getNum2() + "] ");
+        for (int i = 0; i < tablero.getJugador3().getFichasDelJugador().size(); i++) {
+            System.out.print(" [" + tablero.getJugador3().getFichasDelJugador().get(i).getNum1() + " | " + tablero.getJugador3().getFichasDelJugador().get(i).getNum2() + "] ");
 
         }
+        System.out.println("   Al jugador: " + tablero.getJugador3().getNom() + " le quedan " + tablero.getJugador3().getFichasDelJugador().size() + " fichas");
         System.out.println();
         System.out.println("______________________________________________________________");
     }
@@ -240,9 +259,10 @@ public class InputOutput {
     public void imprimirFichasDeJugador4() {
         System.out.println("----1--------2--------3--------4--------5--------6--------7---");
         System.out.println("Fichas de " + tablero.getJugador4().getNom());
-        for (int i = 0; i < tablero.jugador4.getFichasDelJugador().size(); i++) {
-            System.out.print(" [" + tablero.jugador4.getFichasDelJugador().get(i).getNum1() + " | " + tablero.jugador4.getFichasDelJugador().get(i).getNum2() + "] ");
+        for (int i = 0; i < tablero.getJugador4().getFichasDelJugador().size(); i++) {
+            System.out.print(" [" + tablero.getJugador4().getFichasDelJugador().get(i).getNum1() + " | " + tablero.getJugador4().getFichasDelJugador().get(i).getNum2() + "] ");
         }
+        System.out.println("   Al jugador: " + tablero.getJugador4().getNom() + " le quedan " + tablero.getJugador4().getFichasDelJugador().size() + " fichas");
         System.out.println();
         System.out.println("______________________________________________________________");
     }
