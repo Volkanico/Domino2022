@@ -84,6 +84,7 @@ public class InputOutput {
         PreguntaMasJugadores_ReinitCounter();
 
         if (decision == 1) {
+            System.out.println("Miembros del EQUIPO 2");
             System.out.println("Jugador 3 introduzca su nombre: ");
             tablero.anadirJugador3();
             System.out.println(tablero.jugador3.getNom());
@@ -134,6 +135,12 @@ public class InputOutput {
         }
     }
 
+    public void imprimirFichasDelTablero() {
+        for (int i = 0; i < tablero.getFichasDestapadasEnElTablero().size(); i++) {
+            System.out.print(" [" + tablero.getFichasDestapadasEnElTablero().get(i).getNum1() + " | " + tablero.getFichasDestapadasEnElTablero().get(i).getNum2() + "] ");
+        }
+    }
+
     public void anadirJugador1y2Minimos() {
         System.out.println("Jugador 1 introduzca su nombre: ");
         tablero.anadirJugador1();
@@ -148,7 +155,7 @@ public class InputOutput {
         System.out.println("¿Participan mas jugadores?");
         System.out.println("Pulse 1 para SI");
         System.out.println("Pulse 2 para NO");
-        decision = 0;
+
         decision = sc.nextInt();
     }
 
@@ -162,33 +169,41 @@ public class InputOutput {
     public void imprimirFichasDeJugador1() {
         System.out.println();
         System.out.println("Fichas de " + tablero.getJugador1().getNom());
+        System.out.println("----1--------2--------3--------4--------5--------6--------7---");
         for (int i = 0; i < tablero.jugador1.getFichasDelJugador().size(); i++) {
             System.out.print(" [" + tablero.jugador1.getFichasDelJugador().get(i).getNum1() + " | " + tablero.jugador1.getFichasDelJugador().get(i).getNum2() + "] ");
         }
         System.out.println();
+        System.out.println("______________________________________________________________");
     }
     public void imprimirFichasDeJugador2() {
         System.out.println("Fichas de " + tablero.getJugador2().getNom());
+        System.out.println("----1--------2--------3--------4--------5--------6--------7---");
         for (int i = 0; i < tablero.jugador2.getFichasDelJugador().size(); i++) {
             System.out.print(" [" + tablero.jugador2.getFichasDelJugador().get(i).getNum1() + " | " + tablero.jugador2.getFichasDelJugador().get(i).getNum2() + "] ");
 
         }
         System.out.println();
+        System.out.println("______________________________________________________________");
     }
     public void imprimirFichasDeJugador3() {
+        System.out.println("----1--------2--------3--------4--------5--------6--------7---");
         System.out.println("Fichas de " + tablero.getJugador3().getNom());
         for (int i = 0; i < tablero.jugador3.getFichasDelJugador().size(); i++) {
             System.out.print(" [" + tablero.jugador3.getFichasDelJugador().get(i).getNum1() + " | " + tablero.jugador3.getFichasDelJugador().get(i).getNum2() + "] ");
 
         }
         System.out.println();
+        System.out.println("______________________________________________________________");
     }
     public void imprimirFichasDeJugador4() {
+        System.out.println("----1--------2--------3--------4--------5--------6--------7---");
         System.out.println("Fichas de " + tablero.getJugador4().getNom());
         for (int i = 0; i < tablero.jugador4.getFichasDelJugador().size(); i++) {
             System.out.print(" [" + tablero.jugador4.getFichasDelJugador().get(i).getNum1() + " | " + tablero.jugador4.getFichasDelJugador().get(i).getNum2() + "] ");
         }
         System.out.println();
+        System.out.println("______________________________________________________________");
     }
 
 

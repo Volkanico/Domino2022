@@ -13,11 +13,9 @@ public class Tablero {
     Jugador jugador3 = new Jugador("Jugador 3");
     Jugador jugador4 = new Jugador("Jugador 4");
 
-    ArrayList<Jugador> jugadorsTotals = new ArrayList<>();
-
     ArrayList<Jugador> equip1 = new ArrayList<>();
     ArrayList<Jugador> equip2 = new ArrayList<>();
-    ArrayList<Jugador> jugadorsQueJuguenIndividual = new ArrayList<>();
+    ArrayList<Jugador> jugadorsQueJuguen = new ArrayList<>();
 
     private ArrayList<Ficha> fichasTotales = new ArrayList<>();
     private ArrayList<Ficha> fichasDestapadasEnElTablero = new ArrayList<>();
@@ -28,30 +26,27 @@ public class Tablero {
                 fichasTotales.add(new Ficha(i, j));
             }
         }
-        guardarJugadorsTotals();
-    }
 
-    public void guardarJugadorsTotals() {
-        getJugadorsTotals().add(jugador1);
-        getJugadorsTotals().add(jugador2);
-        getJugadorsTotals().add(jugador3);
-        getJugadorsTotals().add(jugador4);
     }
 
     public void anadirJugador1() {
         getJugadorsQueJuguen().add(jugador1);
+        getEquip1().add(jugador1);
         getJugador1().setNom(nameReader.nextLine());
     }
     public void anadirJugador2() {
         getJugadorsQueJuguen().add(jugador2);
+        getEquip1().add(jugador2);
         getJugador2().setNom(nameReader.nextLine());
     }
     public void anadirJugador3() {
         getJugadorsQueJuguen().add(jugador3);
+        getEquip2().add(jugador3);
         getJugador3().setNom(nameReader.nextLine());
     }
     public void anadirJugador4() {
         getJugadorsQueJuguen().add(jugador4);
+        getEquip2().add(jugador4);
         getJugador4().setNom(nameReader.nextLine());
     }
 
@@ -86,21 +81,17 @@ public class Tablero {
 
 
     }
-/*
-    public void juego() {
-        if (ganado1perdido2 == 1) {
-            //HA GANADO
-        }
-        if (ganado1perdido2 == 2) {
-            //HA PERDIDO
-        }
+
+    public void ponerFicha() {
+
+
 
     }
-*/
+
     //-------------------------------------------- SETTERS -------------------------------------------------------------
 
-    public void setJugadorsQueJuguenIndividual(ArrayList<Jugador> jugadorsQueJuguenIndividual) {
-        this.jugadorsQueJuguenIndividual = jugadorsQueJuguenIndividual;
+    public void setJugadorsQueJuguen(ArrayList<Jugador> jugadorsQueJuguen) {
+        this.jugadorsQueJuguen = jugadorsQueJuguen;
     }
 
     public void setFichasTotales(ArrayList<Ficha> fichasTotales) {
@@ -119,9 +110,7 @@ public class Tablero {
         this.equip2 = equip2;
     }
 
-    public void setJugadorsTotals(ArrayList<Jugador> jugadorsTotals) {
-        this.jugadorsTotals = jugadorsTotals;
-    }
+
 
     public void setGanado1perdido2(int ganado1perdido2) {
         this.ganado1perdido2 = ganado1perdido2;
@@ -148,16 +137,14 @@ public class Tablero {
     }
 
     public ArrayList<Jugador> getJugadorsQueJuguen() {
-        return jugadorsQueJuguenIndividual;
+        return jugadorsQueJuguen;
     }
 
     public ArrayList<Ficha> getFichasTotales() {
         return fichasTotales;
     }
 
-    public ArrayList<Jugador> getJugadorsTotals() {
-        return jugadorsTotals;
-    }
+
 
     public Jugador getJugador1() {
         return jugador1;

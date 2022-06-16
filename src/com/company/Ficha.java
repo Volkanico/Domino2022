@@ -2,9 +2,9 @@ package com.company;
 
 public class Ficha {
 
-    private int num1;
-    private int num2;
-    private boolean isTapat;
+    private final int num1;
+    private final int num2;
+    private boolean tapat = false;
 
     public Ficha(int num1, int num2) {
         this.num1 = num1;
@@ -17,5 +17,13 @@ public class Ficha {
 
     public int getNum2() {
         return num2;
+    }
+
+    public boolean isTapat() {
+        return tapat;
+    }
+
+    public void setTapat(boolean tapat) {
+        this.tapat = tapat;
     }
 }
