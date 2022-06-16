@@ -34,16 +34,19 @@ public class Tablero {
         getEquip1().add(jugador1);
         getJugador1().setNom(nameReader.nextLine());
     }
+
     public void anadirJugador2() {
         getJugadorsQueJuguen().add(jugador2);
         getEquip1().add(jugador2);
         getJugador2().setNom(nameReader.nextLine());
     }
+
     public void anadirJugador3() {
         getJugadorsQueJuguen().add(jugador3);
         getEquip2().add(jugador3);
         getJugador3().setNom(nameReader.nextLine());
     }
+
     public void anadirJugador4() {
         getJugadorsQueJuguen().add(jugador4);
         getEquip2().add(jugador4);
@@ -52,28 +55,20 @@ public class Tablero {
 
     public void repartirTodasLasFichas() {
 
-            for (int x = 0; x < getFichasTotales().size(); x++) {
-                for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < getFichasTotales().size(); i++) {
+            for (int x = 0; x < getJugadorsQueJuguen().size(); x++) {
 
-                    int index = (int) (Math.random() * getFichasTotales().size());
-                    jugador1.getFichasDelJugador().add(getFichasTotales().get(index));
-                    fichasTotales.remove(index);
-                    index = (int) (Math.random() * getFichasTotales().size());
-                    jugador2.getFichasDelJugador().add(getFichasTotales().get(index));
-                    fichasTotales.remove(index);
-                    index = (int) (Math.random() * getFichasTotales().size());
-                    jugador3.getFichasDelJugador().add(getFichasTotales().get(index));
-                    fichasTotales.remove(index);
-                    index = (int) (Math.random() * getFichasTotales().size());
-                    jugador4.getFichasDelJugador().add(getFichasTotales().get(index));
-                    fichasTotales.remove(index);
-                }
-                //PROVAM AMB ARRAY NORMAL
+                int index = (int) (Math.random() * getFichasTotales().size());
+                getJugadorsQueJuguen().get(x).getFichasDelJugador().add(getFichasTotales().get(index));
+                fichasTotales.remove(index);
             }
+            i = 0;
+        }
+
 
     }
 
-    public void repartirEquipos2Jugadores () {
+    public void repartirEquipos2Jugadores() {
         getEquip2().add(getJugador2());
         getEquip1().remove(getJugador2());
         getEquip2().remove(getJugador3());
@@ -81,6 +76,7 @@ public class Tablero {
 
 
     }
+
 
     //-------------------------------------------- SETTERS -------------------------------------------------------------
 
@@ -103,7 +99,6 @@ public class Tablero {
     public void setEquip2(ArrayList<Jugador> equip2) {
         this.equip2 = equip2;
     }
-
 
 
     public void setGanado1perdido2(int ganado1perdido2) {
@@ -137,7 +132,6 @@ public class Tablero {
     public ArrayList<Ficha> getFichasTotales() {
         return fichasTotales;
     }
-
 
 
     public Jugador getJugador1() {
