@@ -22,11 +22,4 @@ public class Jugador {
     public ArrayList<Ficha> getFichasDelJugador() {
         return fichasDelJugador;
     }
-
-    public void setFichasDelJugador(ArrayList<Ficha> fichasDelJugador) {
-        this.fichasDelJugador = fichasDelJugador;
-    }
-
-
-
 }

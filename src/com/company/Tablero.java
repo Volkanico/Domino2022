@@ -6,9 +6,6 @@ import java.util.Scanner;
 public class Tablero {
     Scanner nameReader = new Scanner(System.in);
 
-    int ganado1perdido2;
-
-
     Jugador jugador1 = new Jugador("Jugador 1");
     Jugador jugador2 = new Jugador("Jugador 2");
     Jugador jugador3 = new Jugador("Jugador 3");
@@ -27,7 +24,6 @@ public class Tablero {
                 fichasTotales.add(new Ficha(i, j));
             }
         }
-
     }
 
     public void anadirJugador1() {
@@ -69,21 +65,16 @@ public class Tablero {
 
     public void repartirTodasLasFichasInternacionalConRobo() {
         int counterFichasMaximasIniciales = getTotsElsJugadors().size() - 1;
-
-
-                for (int l = 0; l < getTotsElsJugadors().size(); l++) {
-                    for (int x = 0; x < 7; x++) {
-                    int index = (int) (Math.random() * getFichasTotales().size());
-                    getTotsElsJugadors().get(l).getFichasDelJugador().add(getFichasTotales().get(index));
-                    getFichasTotales().remove(index);
-
-                }
+        for (int l = 0; l < getTotsElsJugadors().size(); l++) {
+            for (int x = 0; x < 7; x++) {
+                int index = (int) (Math.random() * getFichasTotales().size());
+                getTotsElsJugadors().get(l).getFichasDelJugador().add(getFichasTotales().get(index));
+                getFichasTotales().remove(index);
             }
-
-
+        }
     }
 
-    public void pedirFicha (Jugador jugador) {
+    public void pedirFicha(Jugador jugador) {
         int index = (int) (Math.random() * getFichasTotales().size());
         jugador.getFichasDelJugador().add(getFichasTotales().get(index));
         getFichasTotales().remove(index);
@@ -97,7 +88,7 @@ public class Tablero {
     }
 
 
-    public void comprobacionDeFicha (int index, Jugador jugador) {
+    public void comprobacionDeFicha(int index, Jugador jugador) {
         int index0deFichasDestapadasDeTablero = 0;
         if (getFichasDestapadasEnElTablero().size() == 0) { // PARA CUANDO NO HAY FICHA EN EL TABLERO
             getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
@@ -107,8 +98,7 @@ public class Tablero {
                         jugador.getFichasDelJugador().get(index).getNum2() == getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2()) {
             getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
             jugador.getFichasDelJugador().remove(index);
-        }
-        else if ( // PRINCIPIO DE ARRAYLIST
+        } else if ( // PRINCIPIO DE ARRAYLIST
                 jugador.getFichasDelJugador().get(index).getNum1() == getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() ||
                         jugador.getFichasDelJugador().get(index).getNum2() == getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
                         jugador.getFichasDelJugador().get(index).getNum1() == getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
@@ -124,56 +114,20 @@ public class Tablero {
                         jugador.getFichasDelJugador().get(index).getNum2() == getFichasDestapadasEnElTablero().get(getFichasDestapadasEnElTablero().size() - 1).getNum1()) {
             getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
             jugador.getFichasDelJugador().remove(index);
-
-
         } else {
             index = 0;
             System.out.println("X---Ficha no valida---X");
         }
     }
 
-    public void eventoGanado (Jugador jugador) {
+    public void eventoGanado(Jugador jugador) {
         if (jugador.getFichasDelJugador().size() == 0) {
             System.out.println("¡¡¡" + jugador.getNom() + " has ganado!!!");
             System.exit(0);
         }
     }
 
-
-    //-------------------------------------------- SETTERS -------------------------------------------------------------
-
-    public void setTotsElsJugadors(ArrayList<Jugador> totsElsJugadors) {
-        this.totsElsJugadors = totsElsJugadors;
-    }
-
-    public void setFichasTotales(ArrayList<Ficha> fichasTotales) {
-        this.fichasTotales = fichasTotales;
-    }
-
-    public void setFichasDestapadasEnElTablero(ArrayList<Ficha> fichasDestapadasEnElTablero) {
-        this.fichasDestapadasEnElTablero = fichasDestapadasEnElTablero;
-    }
-
-    public void setEquip1(ArrayList<Jugador> equip1) {
-        this.equip1 = equip1;
-    }
-
-    public void setEquip2(ArrayList<Jugador> equip2) {
-        this.equip2 = equip2;
-    }
-
-
-    public void setGanado1perdido2(int ganado1perdido2) {
-        this.ganado1perdido2 = ganado1perdido2;
-    }
-
-
-    //-------------------------------------------- GETTERS -------------------------------------------------------------
-
-
-    public int getGanado1perdido2() {
-        return ganado1perdido2;
-    }
+    //-------------------------------------------- GETTERS && SETTERS -----------------------------------------------------------
 
     public ArrayList<Ficha> getFichasDestapadasEnElTablero() {
         return fichasDestapadasEnElTablero;
@@ -195,7 +149,6 @@ public class Tablero {
         return fichasTotales;
     }
 
-
     public Jugador getJugador1() {
         return jugador1;
     }
@@ -211,22 +164,4 @@ public class Tablero {
     public Jugador getJugador4() {
         return jugador4;
     }
-
-    public void setJugador1(Jugador jugador1) {
-        this.jugador1 = jugador1;
-    }
-
-    public void setJugador2(Jugador jugador2) {
-        this.jugador2 = jugador2;
-    }
-
-    public void setJugador3(Jugador jugador3) {
-        this.jugador3 = jugador3;
-    }
-
-    public void setJugador4(Jugador jugador4) {
-        this.jugador4 = jugador4;
-    }
-
-
 }

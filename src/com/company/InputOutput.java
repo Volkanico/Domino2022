@@ -9,10 +9,10 @@ public class InputOutput {
     int modalidad;
     int index = 0;
     int tipoDeDomino;
+    int option;
     Tablero tablero = new Tablero();
 
-
-    public void elegirDomino () {
+    public void elegirDomino() {
         System.out.println("Bienvenido a Dominos de Volkan");
         System.out.println("""
                 Elija una de las opciones:\s
@@ -20,18 +20,16 @@ public class InputOutput {
                 2. Domino Internacional Con Robo\s""");
         tipoDeDomino = sc.nextInt();
         opcionDeDominos();
-
     }
 
-    public void opcionDeDominos () {
+    public void opcionDeDominos() {
 
         if (tipoDeDomino == 1) {
             iniciarJuegoInternacionalSinRobo();
         }
         if (tipoDeDomino == 2) {
             iniciarJuegoInternacionalConRobo();
-        }
-        else {
+        } else {
             System.out.println("Opcion no valida");
             opcionDeDominos();
         }
@@ -44,6 +42,7 @@ public class InputOutput {
         tablero.repartirTodasLasFichasInternacionalSinRobo();
         turnosInternacionalSinRobo();
     }
+
     public void iniciarJuegoInternacionalConRobo() {
         tablero.initFichas();
         imprimirFichas();
@@ -69,7 +68,7 @@ public class InputOutput {
         }
     }
 
-    public void empezarElJuegoConMenosJugadoresQue4 () {
+    public void empezarElJuegoConMenosJugadoresQue4() {
         if (modalidad == 1) {
             imprimirJugadorsIndividuals();
         }
@@ -81,11 +80,9 @@ public class InputOutput {
     public void decisionDeJugadores() {
         if (modalidad == 1) {
             modalidadIndividual();
-
         }
         if (modalidad == 2) {
             modalidadPorEquipos();
-
         }
         if (modalidad != 1 && modalidad != 2) {
             System.out.println("Ups! Opcion erronea");
@@ -121,7 +118,7 @@ public class InputOutput {
                 tirarFichaInternacionalSinRobo(tablero.getTotsElsJugadors().get(x));
                 imprimirFichasDelTablero();
                 tablero.eventoGanado(tablero.getTotsElsJugadors().get(x));
-                }
+            }
         }
     }
 
@@ -140,8 +137,7 @@ public class InputOutput {
     }
 
     public Jugador tirarFichaInternacionalSinRobo(Jugador jugador) {
-        /*ENS FALTA POSAR LA FICHA QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST O AL FINAL DE L'ARRAYLIST, ESTA FET L'IF DEL QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST*/
-        int option;
+        option = 0;
         System.out.println("Quieres tirar ficha o pasar? 1 Para tirar ficha. 2 Para pasar");
         option = sc.nextInt();
         if (option == 1) {
@@ -149,19 +145,18 @@ public class InputOutput {
         }
         if (option == 2) {
             return jugador;
-        } if (option != 1){
+        }
+        if (option != 1) {
             System.out.println("Opcion no valida");
             tirarFichaInternacionalSinRobo(jugador);
         }
         option = 0;
         return jugador;
-
     }
 
 
     public Jugador tirarFichaInternacionalConRobo(Jugador jugador) {
-        /*ENS FALTA POSAR LA FICHA QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST O AL FINAL DE L'ARRAYLIST, ESTA FET L'IF DEL QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST*/
-        int option = 0;
+        option = 0;
         System.out.println("Quieres tirar ficha o pasar? 1 Para tirar ficha. 2 Para pasar. 3 Pedir ficha");
         option = sc.nextInt();
         if (option == 1) {
@@ -174,28 +169,25 @@ public class InputOutput {
             tablero.pedirFicha(jugador);
             imprimirFichasDeJugador();
         }
-        if (option != 1 && option != 3){
+        if (option != 1 && option != 3) {
             System.out.println("Opcion no valida");
             tirarFichaInternacionalConRobo(jugador);
         }
         option = 0;
         return jugador;
-
     }
 
-    public void ponerFichaEnTablero (Jugador jugador) {
+    public void ponerFichaEnTablero(Jugador jugador) {
 
         System.out.println("Pulsa el numero de tu ficha, en el caso de que no tengas");
-
         index = sc.nextInt() - 1;
 
-        if (jugador.getFichasDelJugador().get(index) == null){
+        if (jugador.getFichasDelJugador().get(index) == null) {
             System.out.println("No tienes ficha en esa casilla");
             tirarFichaDependiendoDelDomino(jugador);
         } else {
-            tablero.comprobacionDeFicha(index,jugador);
+            tablero.comprobacionDeFicha(index, jugador);
         }
-
         index = 0;
     }
 
@@ -209,7 +201,6 @@ public class InputOutput {
             PreguntaMasJugadores_ReinitCounter();
             decisionJugadores = sc.nextInt();
             if (decisionJugadores == 1) {
-
                 System.out.println("Jugador 4 introduzca su nombre: ");
                 tablero.anadirJugador4();
                 System.out.println(tablero.jugador4.getNom());
@@ -220,8 +211,6 @@ public class InputOutput {
                 repartirFichasDependiendoDelTipoDeDomino();
                 decisionJugadores = 0;
                 empezarElJuegoConMenosJugadoresQue4();
-
-
             } else {
                 System.out.println("Ups! Opcion erronea");
                 modalidadIndividual();
@@ -231,16 +220,13 @@ public class InputOutput {
             tablero.repartirEquipos2Jugadores();
             repartirFichasDependiendoDelTipoDeDomino();
             empezarElJuegoConMenosJugadoresQue4();
-
-
         } else {
             System.out.println("Ups! Opcion erronea");
             modalidadPorEquipos();
         }
-
     }
 
-    public void repartirFichasDependiendoDelTipoDeDomino () {
+    public void repartirFichasDependiendoDelTipoDeDomino() {
         if (tipoDeDomino == 1) {
             tablero.repartirTodasLasFichasInternacionalSinRobo();
         }
@@ -248,7 +234,8 @@ public class InputOutput {
             tablero.repartirTodasLasFichasInternacionalConRobo();
         }
     }
-    public void tirarFichaDependiendoDelDomino (Jugador jugador) {
+
+    public void tirarFichaDependiendoDelDomino(Jugador jugador) {
         if (tipoDeDomino == 1) {
             tirarFichaInternacionalSinRobo(jugador);
         }
@@ -271,7 +258,6 @@ public class InputOutput {
         System.out.println("¿Participan mas jugadores?");
         System.out.println("Pulse 1 para SI");
         System.out.println("Pulse 2 para NO");
-
         decision = sc.nextInt();
     }
 
@@ -299,17 +285,17 @@ public class InputOutput {
             System.out.println();
             System.out.println("Fichas de " + tablero.getTotsElsJugadors().get(x).getNom());
             enumeracionDeFichas(x);
-            }
+        }
     }
 
-    public void enumeracionDeFichas (int index) {
+    public void enumeracionDeFichas(int index) {
         int counter = 0;
-        for (int i = 0; i < tablero.getTotsElsJugadors().get(index).getFichasDelJugador().size(); i++){
+        for (int i = 0; i < tablero.getTotsElsJugadors().get(index).getFichasDelJugador().size(); i++) {
             counter++;
-             System.out.print("----"  + counter + "----");
+            System.out.print("----" + counter + "----");
         }
         System.out.println();
-        for (int i = 0; i < tablero.getTotsElsJugadors().get(index).getFichasDelJugador().size(); i++){
+        for (int i = 0; i < tablero.getTotsElsJugadors().get(index).getFichasDelJugador().size(); i++) {
             System.out.print(" [" + tablero.getTotsElsJugadors().get(index).getFichasDelJugador().get(i).getNum1() + " | " + tablero.getTotsElsJugadors().get(index).getFichasDelJugador().get(i).getNum2() + "] ");
         }
         System.out.println("   Al jugador: " + tablero.getTotsElsJugadors().get(index).getNom() + " le quedan " + tablero.getTotsElsJugadors().get(index).getFichasDelJugador().size() + " fichas");
@@ -318,7 +304,6 @@ public class InputOutput {
     }
 
     //----------------------------- IMPRIMIR EQUIPOS O JUGADORES INDIVIDUALES ----------------------------------------------------
-
 
     public void imprimirEquips() {
         System.out.println("-----EQUIP 1-----");
@@ -340,6 +325,4 @@ public class InputOutput {
         }
         System.out.println("------------------------------");
     }
-
-
 }
