@@ -70,9 +70,9 @@ public class Tablero {
     public void repartirTodasLasFichasInternacionalConRobo() {
         int counterFichasMaximasIniciales = getTotsElsJugadors().size() - 1;
 
-            for (int x = 0; x < 7; x++) {
-                for (int l = x; l < getTotsElsJugadors().size(); l++) {
 
+                for (int l = 0; l < getTotsElsJugadors().size(); l++) {
+                    for (int x = 0; x < 7; x++) {
                     int index = (int) (Math.random() * getFichasTotales().size());
                     getTotsElsJugadors().get(l).getFichasDelJugador().add(getFichasTotales().get(index));
                     getFichasTotales().remove(index);
