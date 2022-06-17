@@ -5,17 +5,51 @@ import java.util.Scanner;
 public class InputOutput {
     Scanner sc = new Scanner(System.in);
     int decision;
+    int decisionJugadores;
     int modalidad;
     int index = 0;
+    int tipoDeDomino;
     Tablero tablero = new Tablero();
 
-    public void iniciarJuego() {
+
+    public void elegirDomino () {
+        System.out.println("Bienvenido a Dominos de Volkan");
+        System.out.println("""
+                Elija una de las opciones:\s
+                1. Domino Internacional Sin Robo\s
+                2. Domino Internacional Con Robo\s""");
+        tipoDeDomino = sc.nextInt();
+        opcionDeDominos();
+
+    }
+
+    public void opcionDeDominos () {
+
+        if (tipoDeDomino == 1) {
+            iniciarJuegoInternacionalSinRobo();
+        }
+        if (tipoDeDomino == 2) {
+            iniciarJuegoInternacionalConRobo();
+        }
+        else {
+            System.out.println("Opcion no valida");
+            opcionDeDominos();
+        }
+    }
+
+    public void iniciarJuegoInternacionalSinRobo() {
         tablero.initFichas();
         imprimirFichas();
         introduction();
-        tablero.repartirTodasLasFichas();
-
-        turnos();
+        tablero.repartirTodasLasFichasInternacionalSinRobo();
+        turnosInternacionalSinRobo();
+    }
+    public void iniciarJuegoInternacionalConRobo() {
+        tablero.initFichas();
+        imprimirFichas();
+        introduction();
+        tablero.repartirTodasLasFichasInternacionalConRobo();
+        turnosInternacionalConRobo();
     }
 
     public void introduction() {
@@ -33,7 +67,6 @@ public class InputOutput {
         if (modalidad == 1 || modalidad == 2) {
             decisionDeJugadores();
         }
-
     }
 
     public void empezarElJuegoConMenosJugadoresQue4 () {
@@ -53,7 +86,8 @@ public class InputOutput {
         if (modalidad == 2) {
             modalidadPorEquipos();
 
-        } else {
+        }
+        if (modalidad != 1 && modalidad != 2) {
             System.out.println("Ups! Opcion erronea");
             decisionDeJugadores();
         }
@@ -65,7 +99,6 @@ public class InputOutput {
         anadirJugador1y2Minimos();
         PreguntaMasJugadores_ReinitCounter();
         opcioMesJugadors();
-        imprimirJugadorsIndividuals();
     }
 
     public void modalidadPorEquipos() {
@@ -76,26 +109,37 @@ public class InputOutput {
         PreguntaMasJugadores_ReinitCounter();
         System.out.println("Miembros del EQUIPO 2");
         opcioMesJugadors();
-        imprimirEquips();
     }
 
-    public void turnos() {
+    public void turnosInternacionalSinRobo() {
         int limitEmpate = 100;
 
         for (int i = 0; i < limitEmpate; i++) {
-            for (int x = 0; x < tablero.getJugadorsQueJuguen().size(); x++) {
+            for (int x = 0; x < tablero.getTotsElsJugadors().size(); x++) {
                 imprimirFichasDeJugador();
-                System.out.print("Turno de: " + tablero.getJugadorsQueJuguen().get(x).getNom() + ".   ");
-                tirarFicha(tablero.getJugadorsQueJuguen().get(x));
+                System.out.print("Turno de: " + tablero.getTotsElsJugadors().get(x).getNom() + ".   ");
+                tirarFichaInternacionalSinRobo(tablero.getTotsElsJugadors().get(x));
                 imprimirFichasDelTablero();
-                eventoGanado(tablero.getJugadorsQueJuguen().get(x));
+                tablero.eventoGanado(tablero.getTotsElsJugadors().get(x));
                 }
         }
     }
 
+    public void turnosInternacionalConRobo() {
+        int limitEmpate = 100;
 
+        for (int i = 0; i < limitEmpate; i++) {
+            for (int x = 0; x < tablero.getTotsElsJugadors().size(); x++) {
+                imprimirFichasDeJugador();
+                System.out.print("Turno de: " + tablero.getTotsElsJugadors().get(x).getNom() + ".   ");
+                tirarFichaInternacionalConRobo(tablero.getTotsElsJugadors().get(x));
+                imprimirFichasDelTablero();
+                tablero.eventoGanado(tablero.getTotsElsJugadors().get(x));
+            }
+        }
+    }
 
-    public Jugador tirarFicha(Jugador jugador) {
+    public Jugador tirarFichaInternacionalSinRobo(Jugador jugador) {
         /*ENS FALTA POSAR LA FICHA QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST O AL FINAL DE L'ARRAYLIST, ESTA FET L'IF DEL QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST*/
         int option;
         System.out.println("Quieres tirar ficha o pasar? 1 Para tirar ficha. 2 Para pasar");
@@ -105,9 +149,9 @@ public class InputOutput {
         }
         if (option == 2) {
             return jugador;
-        } if ( option != 1 & option != 2){
+        } if (option != 1){
             System.out.println("Opcion no valida");
-            tirarFicha(jugador);
+            tirarFichaInternacionalSinRobo(jugador);
         }
         option = 0;
         return jugador;
@@ -115,62 +159,44 @@ public class InputOutput {
     }
 
 
+    public Jugador tirarFichaInternacionalConRobo(Jugador jugador) {
+        /*ENS FALTA POSAR LA FICHA QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST O AL FINAL DE L'ARRAYLIST, ESTA FET L'IF DEL QUE ENTRA A L'INDEX 0 DE L'ARRAYLIST*/
+        int option = 0;
+        System.out.println("Quieres tirar ficha o pasar? 1 Para tirar ficha. 2 Para pasar. 3 Pedir ficha");
+        option = sc.nextInt();
+        if (option == 1) {
+            ponerFichaEnTablero(jugador);
+        }
+        if (option == 2) {
+            return jugador;
+        }
+        if (option == 3) {
+            tablero.pedirFicha(jugador);
+            imprimirFichasDeJugador();
+        }
+        if (option != 1 && option != 3){
+            System.out.println("Opcion no valida");
+            tirarFichaInternacionalConRobo(jugador);
+        }
+        option = 0;
+        return jugador;
+
+    }
+
     public void ponerFichaEnTablero (Jugador jugador) {
 
         System.out.println("Pulsa el numero de tu ficha, en el caso de que no tengas");
 
         index = sc.nextInt() - 1;
 
-        if (jugador.getFichasDelJugador().get(index) != null) {
-            comprobacionDeFicha(index,jugador);
-        } if (jugador.getFichasDelJugador().get(index) == null){
+        if (jugador.getFichasDelJugador().get(index) == null){
             System.out.println("No tienes ficha en esa casilla");
-            tirarFicha(jugador);
-        }
-    }
-
-
-    public void eventoGanado (Jugador jugador) {
-        if (jugador.getFichasDelJugador().size() == 0) {
-            System.out.println("¡¡¡" + jugador.getNom() + " has ganado!!!");
-            System.exit(0);
-        }
-    }
-
-    public void comprobacionDeFicha (int index, Jugador jugador) {
-        int index0deFichasDestapadasDeTablero = 0;
-        if (tablero.getFichasDestapadasEnElTablero().size() == 0) { // PARA CUANDO NO HAY FICHA EN EL TABLERO
-            tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
-            jugador.getFichasDelJugador().remove(index);
-        } else if ( // PARA LOS IGUALES
-                jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() &&
-                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2()) {
-            tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
-            jugador.getFichasDelJugador().remove(index);
-        }
-        else if ( // PRINCIPIO DE ARRAYLIST
-                jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1() ||
-                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
-                        jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum2() ||
-                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(index0deFichasDestapadasDeTablero).getNum1()) {
-            tablero.getFichasDestapadasEnElTablero().add(0, jugador.getFichasDelJugador().get(index));
-            jugador.getFichasDelJugador().remove(index);
-
-
-        } else if ( //FINAL DE ARRAYILIST
-                jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum1() ||
-                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum2() ||
-                        jugador.getFichasDelJugador().get(index).getNum1() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum2() ||
-                        jugador.getFichasDelJugador().get(index).getNum2() == tablero.getFichasDestapadasEnElTablero().get(tablero.getFichasDestapadasEnElTablero().size() - 1).getNum1()) {
-            tablero.getFichasDestapadasEnElTablero().add(jugador.getFichasDelJugador().get(index));
-            jugador.getFichasDelJugador().remove(index);
-
-
+            tirarFichaDependiendoDelDomino(jugador);
         } else {
-            index = 0;
-            System.out.println("No tienes ficha para tirar");
-            tirarFicha(jugador);
+            tablero.comprobacionDeFicha(index,jugador);
         }
+
+        index = 0;
     }
 
     //----------------------------- METODOS DE SOPORTE (REFACTORING) -------------------------------------------------------------
@@ -181,34 +207,53 @@ public class InputOutput {
             tablero.anadirJugador3();
             System.out.println(tablero.jugador3.getNom());
             PreguntaMasJugadores_ReinitCounter();
-
-            if (decision == 1) {
+            decisionJugadores = sc.nextInt();
+            if (decisionJugadores == 1) {
 
                 System.out.println("Jugador 4 introduzca su nombre: ");
                 tablero.anadirJugador4();
                 System.out.println(tablero.jugador4.getNom());
-                decision = 0;
+                decisionJugadores = 0;
             }
-            if (decision == 2) {
+            if (decisionJugadores == 2) {
                 tablero.getEquip2().remove(tablero.getJugador4());
-                tablero.repartirTodasLasFichas();
-                decision = 0;
+                repartirFichasDependiendoDelTipoDeDomino();
+                decisionJugadores = 0;
                 empezarElJuegoConMenosJugadoresQue4();
-                turnos();
+
+
             } else {
                 System.out.println("Ups! Opcion erronea");
                 modalidadIndividual();
             }
-
         }
         if (decision == 2) {
             tablero.repartirEquipos2Jugadores();
-            tablero.repartirTodasLasFichas();
+            repartirFichasDependiendoDelTipoDeDomino();
             empezarElJuegoConMenosJugadoresQue4();
-            turnos();
+
+
         } else {
             System.out.println("Ups! Opcion erronea");
             modalidadPorEquipos();
+        }
+
+    }
+
+    public void repartirFichasDependiendoDelTipoDeDomino () {
+        if (tipoDeDomino == 1) {
+            tablero.repartirTodasLasFichasInternacionalSinRobo();
+        }
+        if (tipoDeDomino == 2) {
+            tablero.repartirTodasLasFichasInternacionalConRobo();
+        }
+    }
+    public void tirarFichaDependiendoDelDomino (Jugador jugador) {
+        if (tipoDeDomino == 1) {
+            tirarFichaInternacionalSinRobo(jugador);
+        }
+        if (tipoDeDomino == 2) {
+            tirarFichaInternacionalConRobo(jugador);
         }
     }
 
@@ -230,7 +275,6 @@ public class InputOutput {
         decision = sc.nextInt();
     }
 
-
     //----------------------------- IMPRIMIR FICHAS TOTALES Y DE TABLERO ---------------------------------------------------------
     public void imprimirFichas() {
         for (int i = 0; i < tablero.getFichasTotales().size(); i++) {
@@ -250,30 +294,27 @@ public class InputOutput {
 
     //----------------------------- IMPRIMIR FICHAS DE JUGADORES -----------------------------------------------------------------
 
-
     public void imprimirFichasDeJugador() {
-        for (int x = 0; x < tablero.getJugadorsQueJuguen().size(); x++) {
+        for (int x = 0; x < tablero.getTotsElsJugadors().size(); x++) {
             System.out.println();
-            System.out.println("Fichas de " + tablero.getJugadorsQueJuguen().get(x).getNom());
+            System.out.println("Fichas de " + tablero.getTotsElsJugadors().get(x).getNom());
             enumeracionDeFichas(x);
             }
     }
 
     public void enumeracionDeFichas (int index) {
         int counter = 0;
-        for (int i = 0; i < tablero.getJugadorsQueJuguen().get(index).getFichasDelJugador().size(); i++){
+        for (int i = 0; i < tablero.getTotsElsJugadors().get(index).getFichasDelJugador().size(); i++){
             counter++;
              System.out.print("----"  + counter + "----");
         }
         System.out.println();
-        for (int i = 0; i < tablero.getJugadorsQueJuguen().get(index).getFichasDelJugador().size(); i++){
-            System.out.print(" [" + tablero.getJugadorsQueJuguen().get(index).getFichasDelJugador().get(i).getNum1() + " | " + tablero.getJugadorsQueJuguen().get(index).getFichasDelJugador().get(i).getNum2() + "] ");
+        for (int i = 0; i < tablero.getTotsElsJugadors().get(index).getFichasDelJugador().size(); i++){
+            System.out.print(" [" + tablero.getTotsElsJugadors().get(index).getFichasDelJugador().get(i).getNum1() + " | " + tablero.getTotsElsJugadors().get(index).getFichasDelJugador().get(i).getNum2() + "] ");
         }
-        System.out.println("   Al jugador: " + tablero.getJugadorsQueJuguen().get(index).getNom() + " le quedan " + tablero.getJugadorsQueJuguen().get(index).getFichasDelJugador().size() + " fichas");
+        System.out.println("   Al jugador: " + tablero.getTotsElsJugadors().get(index).getNom() + " le quedan " + tablero.getTotsElsJugadors().get(index).getFichasDelJugador().size() + " fichas");
         System.out.println();
         System.out.println("_____________________________________________________________________________________________________________________");
-
-
     }
 
     //----------------------------- IMPRIMIR EQUIPOS O JUGADORES INDIVIDUALES ----------------------------------------------------
@@ -294,8 +335,8 @@ public class InputOutput {
 
     public void imprimirJugadorsIndividuals() {
         System.out.println("-----JUGADORS INDIVIDUALS-----");
-        for (int i = 0; i < tablero.getJugadorsQueJuguen().size(); i++) {
-            System.out.println(tablero.getJugadorsQueJuguen().get(i).getNom());
+        for (int i = 0; i < tablero.getTotsElsJugadors().size(); i++) {
+            System.out.println(tablero.getTotsElsJugadors().get(i).getNom());
         }
         System.out.println("------------------------------");
     }
